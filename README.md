@@ -1,69 +1,102 @@
-# An-AI-Chatbot-in-Python-and-Flask
-An AI Chatbot using Python and Flask REST API 
+# 🧠 Flask AI Chatbot — Neural Network Powered Conversational Bot
 
-## Requirements (libraries)
-1. TensorFlow
-1. Flask
+An intelligent chatbot built with **Flask** and a custom **Keras deep learning model**. The bot uses a trained neural network with intent classification to understand user messages and generate contextual responses. Features NLP preprocessing with NLTK and a bag-of-words approach.
 
-## VsCode SetUp
-1. Clone the repository-> cd into the cloned repository folder
-2. Create a python virtual environment 
+---
+
+## ✨ Features
+
+- **Deep Learning Model** — 3-layer Sequential neural network (128→64→softmax) trained on custom intents
+- **Intent Classification** — Classifies user messages into 30+ intent categories with confidence scoring
+- **NLP Pipeline** — Tokenization, lemmatization, and bag-of-words vectorization using NLTK
+- **Personalized Responses** — Recognizes user names and personalizes replies
+- **Custom Training** — Train the model on your own `intents.json` with the included training script
+- **Web Interface** — Clean, interactive chat UI served via Flask
+
+## 🛠️ Tech Stack
+
+| Layer      | Technology                        |
+|------------|-----------------------------------|
+| Backend    | Python, Flask                     |
+| ML Model   | Keras / TensorFlow (Sequential)   |
+| NLP        | NLTK (WordNet Lemmatizer, Tokenizer) |
+| Training   | SGD Optimizer, Categorical Crossentropy |
+| Frontend   | HTML, CSS, JavaScript             |
+
+## 📁 Project Structure
+
 ```
-# macOS/Linux
-# You may need to run sudo apt-get install python3-venv first
-python3 -m venv .venv
-
-# Windows
-# You can also use py -3 -m venv .venv
-python -m venv .venv
+flask-ai-chatbot-2020/
+├── app.py                  # Flask app with prediction & response logic
+├── train.py                # Model training script (builds chatbot_model.h5)
+├── intents.json            # Training data — 30+ intents with patterns & responses
+├── chatbot_model.h5        # Pre-trained Keras model
+├── words.pkl               # Serialized vocabulary
+├── classes.pkl             # Serialized intent classes
+├── static/
+│   ├── css.css             # Chat widget styles
+│   └── style.css           # Page styles
+└── templates/
+    └── index.html          # Chat interface
 ```
-When you create a new virtual environment, a prompt will be displayed to allow you to select it for the workspace.
 
-3. Activate the virtual environment
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.7+
+- pip
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/flask-ai-chatbot-2020.git
+cd flask-ai-chatbot-2020
+
+# Install dependencies
+pip install flask keras tensorflow nltk numpy
+
+# Download NLTK data
+python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('omw-1.4')"
 ```
-#linux
-source ./venv/bin/activate  # sh, bash, or zsh
 
-#windows
-.\venv\Scripts\activate
+### Training the Model
+
+```bash
+python train.py
 ```
-4. Run ```pip install --upgrade tensorflow``` to install ```Tensorflow```
-5. Run ```pip install -U nltk``` to install ```nltk```
-6. Run ```pip install -U Flask``` to install ```flask```
-7. To expose your bot via Ngrok, run ```pip install flask-ngrok``` to install ```flask-ngrok``` Then you'll need to configure your ngrok credentials(login: email + password) Then uncomment this line ```run_with_ngrok(app) ``` and comment the last two lines ```if __name__ == "__main__": app.run() ``` Notice that ngrok is not used by default.
-8. To access your bot on localhost, go to ```http://127.0.0.1:5000/ ``` If you're on Ngrok your url will be ```some-text.ngrok.io```
 
-### Step-By-Step Explanation and Installation Guide
-> https://dentricedev.com/blog/how-to-create-an-ai-chatbot-in-python-and-flask-gvub
-> 
-> https://dev.to/dennismaina/how-to-create-an-ai-chatbot-in-python-and-flask-1c3m
-### Execution
-To run this Bot, first run the ```train.py``` file to train the model. This will generate a file named ```chatbot_model.h5```<br>
-This is the model which will be used by the Flask REST API to easily give feedback without the need to retrain.<br>
-After running ```train.py```, next run the ```app.py``` to initialize and start the bot.<br>
-To add more terms and vocabulary to the bot, modify the ```intents.json``` file and add your personalized words and retrain the model again.
+This will:
+1. Parse `intents.json` and tokenize patterns
+2. Build a bag-of-words representation
+3. Train a 3-layer neural network for 200 epochs
+4. Save the model to `chatbot_model.h5`
 
+### Running the App
 
-<!-- Actual text -->
-## Find me on
-[![Twitter][1.2]][1]  [![LinkedIn][2.2]][2]
+```bash
+python app.py
+```
 
-<!-- Icons -->
+The app will start at `http://127.0.0.1:5000/`
 
-[1.2]: http://i.imgur.com/wWzX9uB.png (Twitter)
-[2.2]: https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/linkedin-3-16.png (LinkedIn)
+## 🧪 Model Architecture
 
-<!-- Links to my social media accounts -->
-[1]: https://twitter.com/dennisjmaina
-[2]: https://www.linkedin.com/in/dennismaina/
-[3]: https://instagram.com/denno.h_
+```
+Layer 1: Dense(128, activation='relu') + Dropout(0.5)
+Layer 2: Dense(64, activation='relu')  + Dropout(0.5)
+Layer 3: Dense(N, activation='softmax')  # N = number of intents
+```
 
-## Having troubles implementing?
- > Reach out to me maina@dentricedev.com 
- I will be happy to assist 
-# 
-## want something improved or added?
-  > Fork the repo @ [GitHub](https://github.com/mainadennis/An-AI-Chatbot-in-Python-and-Flask).
-# 
-## Regards,
- > [DentriceDev Solutions](https://dentricedev.com).
+- **Optimizer:** SGD (lr=0.01, momentum=0.9, Nesterov)
+- **Loss:** Categorical Crossentropy
+- **Confidence Threshold:** 0.25
+
+## 💬 Supported Intent Categories
+
+Greetings, Goodbye, Thanks, Name Recognition, AI Knowledge, Robotics, Programming, Humor, Events, and 20+ more — all customizable via `intents.json`.
+
+---
+
+> **Note:** This project was built as a freelance project in 2020 demonstrating deep learning-based conversational AI with a custom-trained Keras model.
