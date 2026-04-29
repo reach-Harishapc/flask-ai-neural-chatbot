@@ -99,4 +99,3 @@ Greetings, Goodbye, Thanks, Name Recognition, AI Knowledge, Robotics, Programmin
 
 ---
 
-> **Note:** This project was built as a freelance project in 2020 demonstrating deep learning-based conversational AI with a custom-trained Keras model.
